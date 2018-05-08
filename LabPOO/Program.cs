@@ -16,7 +16,7 @@ namespace LabPOO
         public delegate bool DelegateSupervisarCompra(Product productoASupervisar);
         public event EventHandler<EventArgs> OnSupervisarCompra;
         
-        }
+
 
         static void Main(string[] args)
         {
