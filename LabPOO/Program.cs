@@ -12,6 +12,9 @@ namespace LabPOO
         public static List<Product> cart;
         public static List<Product> market;
 
+        public delegate bool DelegateSupervisarCompra(Product productoASupervisar);
+        public event EventHandler<EventArgs> OnSupervisarCompra;
+
         static void Main(string[] args)
         {
             cart = new List<Product>();
@@ -36,6 +39,7 @@ namespace LabPOO
                     }
                     else if (answer == "2")
                     {
+                        // MODIFICAR AQUI
                         WalkAround();
                         break;
                     }
