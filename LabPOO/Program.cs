@@ -4,25 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LabPOO
 {
+    public delegate bool DelegateSupervisarCompra(List<Product> lista);
+
+    [Serializable()]
     class Program
     {
         public static List<Product> cart;
         public static List<Product> market;
         public static List<Product> receta;
+        private static bool carroVacio;
 
-        public delegate bool DelegateSupervisarCompra(Product productoASupervisar);
-        public event EventHandler<EventArgs> OnSupervisarCompra;
-        
-
+        //public event EventHandler<EventArgs> OnSupervisarCompra;
 
         static void Main(string[] args)
         {
+            carroVacio = true;
             cart = new List<Product>();
             market = new List<Product>();
             receta = new List<Product>();
+
+            //DelegateSupervisarCompra dsc = new DelegateSupervisarCompra();
 
             SupplyStore();
             while (true)
@@ -61,6 +67,22 @@ namespace LabPOO
                     }
                     else if (answer == "5")
                     {
+                        if (carroVacio == false)
+                        {
+                            try
+                            {
+                                using (Stream stream = File.Open("datosSerializados.bin", FileMode.Create))
+                                {
+                                    BinaryFormatter binSerializar = new BinaryFormatter();
+                                    binSerializar.Serialize(stream, cart);
+                                }
+                            }
+                            catch (IOException e)
+                            {
+                                System.Console.WriteLine(e.Message);
+                            }
+                            
+                        }
                         Environment.Exit(1);
                     }
                 }
@@ -104,9 +126,12 @@ namespace LabPOO
                     }
 
                     market[answer].Comprobar(receta);
-                    Thread.Sleep(3000);
-
-                    AddToCart(market[answer]);
+                    Thread.Sleep(2000);
+                    if (market[answer].Comprobar(receta))
+                    {
+                        AddToCart(market[answer]);
+                    }
+                    
                     break;
                 }
                 catch
@@ -120,6 +145,10 @@ namespace LabPOO
         {
             PrintHeader();
             Console.WriteLine("Su carrito:\n\n");
+            if (cart.Count() != 0)
+            {
+                carroVacio = false;
+            }
             for (int i = 0; i < cart.Count(); i++)
             {
                 PrintProduct(i, cart[i]);

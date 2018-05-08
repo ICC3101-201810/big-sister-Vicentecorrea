@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LabPOO
 {
-    class Product
+    [Serializable()]
+    public class Product
     {
+
         private string name;
         private int stock;
         private int price; //Price for one unit of the product
@@ -32,17 +36,17 @@ namespace LabPOO
             return false;
         }
 
-        public void Comprobar(List<Product> lista)
+        public bool Comprobar(List<Product> lista)
         {
             if (lista.Contains(this))
             {
                 Console.WriteLine("El producto {0} SI está en la receta", this.Name);
-                //return true;
+                return true;
             }
             else
             {
                 Console.WriteLine("El producto {0} NO está en la receta", this.Name);
-                //return false;
+                return false;
             }
             
         }
