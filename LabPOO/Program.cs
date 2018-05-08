@@ -143,6 +143,20 @@ namespace LabPOO
 
         public static void PrintCart()
         {
+            try
+            {
+                using (Stream stream = File.Open("datosSerializados.bin", FileMode.Open))
+                {
+                    BinaryFormatter bindes = new BinaryFormatter();
+
+                    var cart2 = (List<Product>)bindes.Deserialize(stream);
+                }
+            }
+            catch (IOException e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
+
             PrintHeader();
             Console.WriteLine("Su carrito:\n\n");
             if (cart.Count() != 0)
