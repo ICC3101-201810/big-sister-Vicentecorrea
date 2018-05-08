@@ -32,6 +32,21 @@ namespace LabPOO
             return false;
         }
 
+        public void Comprobar(List<Product> lista)
+        {
+            if (lista.Contains(this))
+            {
+                Console.WriteLine("El producto {0} SI está en la receta", this.Name);
+                //return true;
+            }
+            else
+            {
+                Console.WriteLine("El producto {0} NO está en la receta", this.Name);
+                //return false;
+            }
+            
+        }
+
         public string Name { get => name; }
         public int Stock { get => stock; }
         public int Price { get => price; }

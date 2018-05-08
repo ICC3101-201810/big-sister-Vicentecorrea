@@ -15,11 +15,8 @@ namespace LabPOO
 
         public delegate bool DelegateSupervisarCompra(Product productoASupervisar);
         public event EventHandler<EventArgs> OnSupervisarCompra;
-        /*
-        public bool VerSiEstaEnReceta(Product p)
-        {
-
-        }*/
+        
+        }
 
         static void Main(string[] args)
         {
@@ -105,12 +102,10 @@ namespace LabPOO
                     {
                         continue;
                     }
-                    if (receta.Contains(market[answer]))
-                    {
-                        Console.WriteLine("SI ESTA EN LA RECETAAAAAAAAAAAAAAA!");
-                        Thread.Sleep(3000);
-                        
-                    }
+
+                    market[answer].Comprobar(receta);
+                    Thread.Sleep(3000);
+
                     AddToCart(market[answer]);
                     break;
                 }
